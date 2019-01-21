@@ -20,14 +20,17 @@ const mongoDbConnect = async () => {
 }
 mongoDbConnect();
 
+//////////
+
 const UserInfo = require('./models/userInfo');
 
 app.get('/api/get', async (req, res) => {
     try {
-        await UserInfo.find({users});
-        res.send(users);
+        const allUsers = await UserInfo.find();
+        res.send(allUsers);
     } catch(err) {
-        console.log(`Err: ${err}`);
+        res.send(allUsers);
+        console.log(`Get UserInfo: ${err}`);
     }
 });
 
@@ -46,12 +49,14 @@ app.post('/api/post', async (req, res) => {
     try {
         await newUserInfo.save();
         res.sendStatus(200);
-        console.log(`UserInfo: ${JSON.stringify(req.body)} ${Date()}`);
+        console.log(`Post UserInfo: ${JSON.stringify(req.body)} ${Date()}`);
     } catch(err) {
         res.sendStatus(400);
-        console.log(`UserInfo: ${err}`);
+        console.log(`Post UserInfo: ${err}`);
     }
 });
+
+//////////
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);

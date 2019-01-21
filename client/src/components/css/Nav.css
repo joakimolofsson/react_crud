@@ -24,7 +24,7 @@
 }
 
 .Nav li:hover {
-    background: lightgrey;
+    background: rgba(0,0,0,0.1);
 }
 
 .navBtnBorder::after {

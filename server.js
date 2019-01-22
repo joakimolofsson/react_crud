@@ -24,25 +24,41 @@ mongoDbConnect();
 
 const UserInfo = require('./models/userInfo');
 
-app.get('/api/get', async (req, res) => {
+app.post('/api/login', async (req, res) => {
     try {
-        const allUsers = await UserInfo.find();
-        res.send(allUsers);
+        const loginInput = await UserInfo.findOne({username: req.body.username, password: req.body.password});
+
+        if(loginInput != null) {
+            res.send({status: 'OK', userData: loginInput});
+            console.log(`Login: ${loginInput}`);
+        } else {
+            res.send({status: 'NOMATCH'});
+            console.log(`Login Not Found: ${req.body.username} ${req.body.password}`);
+        }
     } catch(err) {
-        res.send(allUsers);
-        console.log(`Get UserInfo: ${err}`);
+        res.send({status: 'ERROR'});
+        console.log(`Login error: ${err}`);
     }
 });
 
-app.post('/api/post', async (req, res) => {
-    const inputData = req.body;
+app.get('/api/home', async (req, res) => {
+    try {
+        const allUsers = await UserInfo.find();
+        console.log(allUsers);
+        //res.send(allUsers);
+    } catch(err) {
+        //res.send(allUsers);
+        console.log(`All UserInfo: ${err}`);
+    }
+});
 
+app.post('/api/create', async (req, res) => {
     const newUserInfo = new UserInfo({
-        firstname: inputData.firstname,
-        lastname: inputData.lastname,
-        email: inputData.email,
-        username: inputData.username,
-        password: inputData.password,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
         timestamp: new Date()
     });
 

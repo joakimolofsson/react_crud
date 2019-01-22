@@ -8,10 +8,10 @@ class Home extends Component {
 
     async componentDidMount() {
         try {
-            const response = await fetch('http://localhost:4000/api/get'),
-            data = await response.json();
+            const response = await fetch('http://localhost:4000/api/home'),
+            responseData = await response.json();
             this.setState({
-                users: data
+                users: responseData
             });
         } catch(err) {
             console.log(err);

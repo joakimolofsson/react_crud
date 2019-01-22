@@ -6,7 +6,8 @@ const Nav = () => {
     return (
         <div className="Nav">
             <ul>
-                <li><Link to="/">Home</Link></li>
+                <li><Link to="/">Login</Link></li>
+                <li className="navBtnBorder"><Link to="/home">Home</Link></li>
                 <li className="navBtnBorder"><Link to="/create">Create</Link></li>
                 <li className="navBtnBorder"><Link to="/update">Update</Link></li>
                 <li><Link to="/delete">Delete</Link></li>

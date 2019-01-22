@@ -25,7 +25,7 @@ class Create extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:4000/api/post', {
+            const response = await fetch('http://localhost:4000/api/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ class Home extends Component {
     }
 
     async componentDidMount() {
-        try {
+        /* try {
             const response = await fetch('http://localhost:4000/api/home'),
             responseData = await response.json();
             this.setState({
@@ -15,7 +15,7 @@ class Home extends Component {
             });
         } catch(err) {
             console.log(err);
-        }
+        } */
     }
 
     render() {

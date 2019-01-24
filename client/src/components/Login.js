@@ -8,6 +8,15 @@ class Login extends Component {
         password: ''
     }
 
+    async componentDidMount() {
+        try {
+            const response = await fetch('http://localhost:4000/api/');
+            console.log(response);
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value

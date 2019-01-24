@@ -1,5 +1,7 @@
 const express = require('express'),
 bodyParser = require('body-parser'),
+cookieParser = require('cookie-parser'),
+session = require('express-session'),
 cors = require('cors'),
 mongoose = require('mongoose');
 
@@ -8,7 +10,15 @@ port = process.env.PORT || 4000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'Session Secret!',
+}));
 app.use(cors());
+
+//////////
 
 const mongodb = require('./config/database');
 const mongoDbConnect = async () => {
@@ -20,9 +30,14 @@ const mongoDbConnect = async () => {
 }
 mongoDbConnect();
 
+const UserInfo = require('./models/userInfo');
+
 //////////
 
-const UserInfo = require('./models/userInfo');
+app.get('/api/', (req, res) => {
+    /* res.cookie("react_crud_cookie", "cookie_value_test", {maxAge: 360000}).send("Cookie Set");
+    console.log('Cookies: ', req.cookies); */
+});
 
 app.post('/api/login', async (req, res) => {
     try {
@@ -42,14 +57,14 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.get('/api/home', async (req, res) => {
-    try {
+    /* try {
         const allUsers = await UserInfo.find();
         console.log(allUsers);
-        //res.send(allUsers);
+        res.send(allUsers);
     } catch(err) {
-        //res.send(allUsers);
+        res.send(allUsers);
         console.log(`All UserInfo: ${err}`);
-    }
+    } */
 });
 
 app.post('/api/create', async (req, res) => {
@@ -75,5 +90,5 @@ app.post('/api/create', async (req, res) => {
 //////////
 
 app.listen(port, () => {
-    console.log(`http://localhost:${port}`);
+    console.log(`Server OK: ${port}`);
 });
